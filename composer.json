@@ -1,5 +1,5 @@
 {
-    "name": "objetocomunicacao/OBRSDK",
+    "name": "objetocomunicacao/obrsdk",
     "type": "library",
     "description": "SDK para acessar API Objeto Boletos Registrados",
     "keywords": ["boletos banco do brasil", "boletos", "boletos registrados", "objeto comunicacao", "api boletos registrados"],
