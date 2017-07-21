@@ -30,16 +30,17 @@ class Bancos {
     }
 
     /**
-     * 
-     * @param string $banco_json_nome
+     * Retorna a entidade do banco por nome se achar a entidade do mesmo
+     * Exemplo: banco_do_brasil roterona a entidade \OBRSDK\Entidades\BancoDoBrasil
+     * @param string $banco_nome
      * @return \OBRSDK\Entidades\Abstratos\ABanco
      * @throws \Exception
      */
-    public static function getBancoInstanciaDoJsonNome($banco_json_nome) {
-        $bancoClass = '\OBRSDK\Entidades\\' . lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ', $banco_json_nome))));
+    public static function getEntidadeBancoPorNome($banco_nome) {
+        $bancoClass = '\OBRSDK\Entidades\\' . lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ', $banco_nome))));
 
         if (!class_exists($bancoClass)) {
-            throw new \Exception("Não foi possivel encontrar o banco '" . $banco_json_nome . "'");
+            throw new \Exception("Não foi possivel encontrar o banco '" . $banco_nome . "'");
         }
 
         return new $bancoClass;
