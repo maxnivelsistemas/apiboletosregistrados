@@ -13,7 +13,7 @@ namespace OBRSDK\HttpClient;
  *
  * @author Antonio
  */
-class RemessasCliente extends Nucleo\ApiCliente {
+class RemessasCliente extends Nucleo\Instancia {
 
     /**
      * 
@@ -32,7 +32,7 @@ class RemessasCliente extends Nucleo\ApiCliente {
         // seta com dados atualizado
         $remessas_dados['boletos'] = $boletos;
 
-        $resposta = $this->addAuthorization()
+        $resposta = $this->apiCliente->addAuthorization()
                 ->postJson('remessas', $remessas_dados)
                 ->getResposta(true);
 

@@ -17,8 +17,15 @@ abstract class Instancia {
 
     private $instancia;
 
+    /**
+     *
+     * @var \OBRSDK\HttpClient\Nucleo\ApiCliente
+     */
+    protected $apiCliente;
+
     public function __construct(\OBRSDK\ObjetoBoletosRegistrados $instancia) {
         $this->instancia = $instancia;
+        $this->apiCliente = new ApiCliente($instancia);
     }
 
     /**

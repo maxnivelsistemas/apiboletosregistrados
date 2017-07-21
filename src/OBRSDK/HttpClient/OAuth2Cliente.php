@@ -13,7 +13,7 @@ namespace OBRSDK\HttpClient;
  *
  * @author Antonio
  */
-class OAuth2Cliente extends Nucleo\ApiCliente {
+class OAuth2Cliente extends Nucleo\Instancia {
 
     /**
      * Faz autenticacao na API com as suas credenciais de 'appId' e 'appSecret'
@@ -86,7 +86,7 @@ class OAuth2Cliente extends Nucleo\ApiCliente {
                     ]
             );
 
-            $response = $this->postParam('auth/token', $param)->getResposta(true);
+            $response = $this->apiCliente->postParam('auth/token', $param)->getResposta(true);
 
             if (!isset($response['refresh_token'])) {
                 $response['refresh_token'] = null;

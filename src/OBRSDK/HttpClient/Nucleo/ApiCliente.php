@@ -13,14 +13,20 @@ namespace OBRSDK\HttpClient\Nucleo;
  *
  * @author Antonio
  */
-class ApiCliente extends Instancia implements \OBRSDK\HttpClient\Interfaces\ICoreCliente {
+class ApiCliente implements \OBRSDK\HttpClient\Interfaces\ICoreCliente {
+
+    private $instancia;
+
+    public function __construct(\OBRSDK\ObjetoBoletosRegistrados $instancia) {
+        $this->instancia = $instancia;
+    }
 
     /**
      * Adiciona o cabeçalho de autorizacao com o token da instancia
      * @return \OBRSDK\HttpClient\Nucleo\ApiCliente
      */
     public function addAuthorization() {
-        $this->addHeader('Authorization', 'Bearer ' . $this->getInstancia()->getObjAccessToken()->getAccessToken());
+        $this->addHeader('Authorization', 'Bearer ' . $this->instancia->getObjAccessToken()->getAccessToken());
         return $this;
     }
 

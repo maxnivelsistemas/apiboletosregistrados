@@ -13,7 +13,7 @@ namespace OBRSDK\HttpClient;
  *
  * @author Antonio
  */
-class BoletosCliente extends Nucleo\ApiCliente {
+class BoletosCliente extends Nucleo\Instancia {
 
     /**
      * 
@@ -49,7 +49,7 @@ class BoletosCliente extends Nucleo\ApiCliente {
         ];
 
 
-        $response = $this->addAuthorization()
+        $response = $this->apiCliente->addAuthorization()
                 ->postJson('boletos', $param)
                 ->getResposta(true);
 
@@ -71,7 +71,7 @@ class BoletosCliente extends Nucleo\ApiCliente {
     public function listarBoletos(\OBRSDK\Entidades\Beneficiario $beneficiario, array $query_string_opcional) {
         $query_string = array_merge($beneficiario->getAtributes(), $query_string_opcional);
 
-        $response = $this->addAuthorization()
+        $response = $this->apiCliente->addAuthorization()
                 ->get('boletos', $query_string)
                 ->getResposta(true);
 
