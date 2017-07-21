@@ -29,4 +29,20 @@ class Bancos {
         return self::$bancos;
     }
 
+    /**
+     * 
+     * @param string $banco_json_nome
+     * @return \OBRSDK\Entidades\Abstratos\ABanco
+     * @throws \Exception
+     */
+    public static function getBancoInstanciaDoJsonNome($banco_json_nome) {
+        $bancoClass = '\OBRSDK\Entidades\\' . lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ', $banco_json_nome))));
+
+        if (!class_exists($bancoClass)) {
+            throw new \Exception("Não foi possivel encontrar o banco '" . $banco_json_nome . "'");
+        }
+
+        return new $bancoClass;
+    }
+
 }
