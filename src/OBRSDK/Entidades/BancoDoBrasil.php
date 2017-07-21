@@ -13,7 +13,7 @@ namespace OBRSDK\Entidades;
  *
  * @author Antonio
  */
-class BancoDoBrasil extends Abstratos\AEntidadePropriedades {
+class BancoDoBrasil extends Abstratos\ABanco {
 
     ///
     /// ATRIBUTOS OBRIGATORIOS

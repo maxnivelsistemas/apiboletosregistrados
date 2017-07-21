@@ -17,14 +17,13 @@ class BoletosCliente extends Nucleo\ApiCliente {
 
     /**
      * 
-     * @param \OBRSDK\Entidades\BancoDoBrasil $banco
+     * @param \OBRSDK\Entidades\Abstratos\ABanco $banco
      * @param \OBRSDK\Entidades\Beneficiario $beneficiario
-     * @param \OBRSDK\Entidades\Boletos[] $boletos
-     * @return \OBRSDK\Entidades\Boletos[]
+     * @param type $boletos
+     * @return type
      * @throws \OBRSDK\Exceptions\PreenchimentoIncorreto
      */
-    public function gerarBancoDoBrasil(
-    \OBRSDK\Entidades\BancoDoBrasil $banco, \OBRSDK\Entidades\Beneficiario $beneficiario, $boletos) {
+    public function gerarBoletos(\OBRSDK\Entidades\Abstratos\ABanco $banco, \OBRSDK\Entidades\Beneficiario $beneficiario, $boletos) {
         if (!is_array($boletos) && !($boletos instanceof \OBRSDK\Entidades\Boletos)) {
             throw new \OBRSDK\Exceptions\PreenchimentoIncorreto("Boletos precisam ser um array de entidade Boletos");
         }
@@ -39,11 +38,12 @@ class BoletosCliente extends Nucleo\ApiCliente {
             if (!($boleto instanceof \OBRSDK\Entidades\Boletos)) {
                 throw new \OBRSDK\Exceptions\PreenchimentoIncorreto("Boletos precisam ser um array de entidade Boletos");
             }
+
             $boletos_dados[] = $boleto->getAtributes();
         }
 
         $param = [
-            'banco_do_brasil' => $banco_dados,
+            $banco->getNomeBancoJson() => $banco_dados,
             'beneficiario' => $beneficiario_dados,
             'boletos' => $boletos_dados
         ];

@@ -16,7 +16,7 @@ namespace OBRSDK;
 class Bancos {
 
     private static $bancos = array(
-        'banco_do_brasil' => 'BancoDoBrasil'
+        'BancoDoBrasil'
     );
 
     /**
