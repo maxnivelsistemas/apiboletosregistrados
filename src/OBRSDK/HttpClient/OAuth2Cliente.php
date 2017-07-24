@@ -41,7 +41,7 @@ class OAuth2Cliente extends Nucleo\Instancia {
     public function autenticarComAutorizacao($code = null) {
         $error = filter_input(INPUT_GET, 'error');
         if ($error != null && $error != '') {
-            throw new \OBRSDK\Exceptions\AutorizationException($error, filter_input(INPUT_GET, 'error_descript'));
+            throw new \OBRSDK\Exceptions\AutorizationException($error, filter_input(INPUT_GET, 'error_description'));
         }
 
         $authorizationCode = $code == null ? filter_input(INPUT_GET, 'code') : $code;
