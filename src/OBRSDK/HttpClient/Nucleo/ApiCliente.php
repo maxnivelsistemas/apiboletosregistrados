@@ -26,6 +26,7 @@ class ApiCliente implements \OBRSDK\HttpClient\Interfaces\ICoreCliente {
      * @return \OBRSDK\HttpClient\Nucleo\ApiCliente
      */
     public function addAuthorization() {
+        $this->instancia->verificarAccessToken();
         $this->addHeader('Authorization', 'Bearer ' . $this->instancia->getObjAccessToken()->getAccessToken());
         return $this;
     }

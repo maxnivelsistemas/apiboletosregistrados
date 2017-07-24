@@ -20,6 +20,12 @@ class ObjetoBoletosRegistrados {
     private $accessToken = null;
     private $autenticacao;
 
+    /**
+     *
+     * @var IAccessTokenCallback
+     */
+    private $accessTokenUpdateCallback;
+
     public function __construct(array $config, \OBRSDK\Entidades\AccessToken $objAccessToken = null) {
         if (!isset($config['appId']) || !isset($config['appSecret'])) {
             throw new Exceptions\ConfiguracaoInvalida("É necessário passar um 'appId' e um 'appSecret' nas configurações inicial");
@@ -67,6 +73,36 @@ class ObjetoBoletosRegistrados {
      */
     public function setObjAccessToken(Entidades\AccessToken $autenticacao) {
         $this->accessToken = $autenticacao;
+        if ($this->accessTokenUpdateCallback != null) {
+            $this->accessTokenUpdateCallback->novoAccessToken($this->accessToken);
+        }
+    }
+
+    /**
+     * Seta um objeto do tipo IAccessTokenCallback para receber sempre uma chamada 
+     *  quando o token de acesso for atualizado pelo SDK
+     * 
+     * O Objeto do token atualizado é recebido na funcao 'novoAccessToken'
+     * 
+     * @param \OBRSDK\IAccessTokenCallback $accessTokenCallback
+     */
+    public function setAccessTokenUpdateCallback(IAccessTokenCallback $accessTokenCallback) {
+        $this->accessTokenUpdateCallback = $accessTokenCallback;
+    }
+
+    /**
+     * Verifica se o access token esta expirado, se tiver tenta pegar um novo 
+     * access token via refresh token se o mesmo existir, se não existir refresh 
+     * token, tenta autenticar por credenciais
+     */
+    public function verificarAccessToken() {
+        if ($this->accessToken->getDataToken() + $this->accessToken->getExpireIn() - 10 <= time()) {
+            if ($this->accessToken->getRefreshToken() != null && strlen($this->accessToken->getRefreshToken()) > 0) {
+                $this->Autenticar()->porRefreshToken($this->accessToken->getRefreshToken());
+            } else {
+                $this->Autenticar()->porCredenciais();
+            }
+        }
     }
 
 }
