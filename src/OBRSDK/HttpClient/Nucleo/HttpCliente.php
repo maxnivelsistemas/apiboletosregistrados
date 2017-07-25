@@ -142,7 +142,6 @@ class HttpCliente implements \OBRSDK\HttpClient\Interfaces\ICoreCliente {
             throw new \Exception("Parametro data deve ser um formato array em OBRSDK\HttpClient\Nucleo\HttpCliente->request");
         }
 
-        $this->requestCalling = true;
         try {
             $response = [];
 
@@ -160,6 +159,7 @@ class HttpCliente implements \OBRSDK\HttpClient\Interfaces\ICoreCliente {
                 $response = $this->client->request($type, $uri);
             }
 
+            $this->requestCalling = true;
             $this->response = $response->getBody()->getContents();
         } catch (\GuzzleHttp\Exception\BadResponseException $ex) {
             throw new \OBRSDK\Exceptions\RespostaException($ex->getResponse()->getBody()->getContents());
