@@ -16,7 +16,7 @@ namespace OBRSDK\Entidades;
 class AccessToken extends Abstratos\AEntidadePropriedades {
 
     protected $access_token;
-    protected $expire_in;
+    protected $expires_in;
     protected $scope;
     protected $refresh_token;
     protected $data_token;
@@ -34,7 +34,7 @@ class AccessToken extends Abstratos\AEntidadePropriedades {
      * @return int
      */
     public function getExpireIn() {
-        return $this->expire_in;
+        return $this->expires_in;
     }
 
     /**

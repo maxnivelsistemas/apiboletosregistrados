@@ -133,6 +133,15 @@ class HttpCliente implements \OBRSDK\HttpClient\Interfaces\ICoreCliente {
         if ($this->requestCalling) {
             throw new \Exception("Não é possivel fazer uma requisicão sem obter a resposta da anterior");
         }
+
+        if (is_null($data)) {
+            $data = array();
+        }
+
+        if (!is_array($data)) {
+            throw new \Exception("Parametro data deve ser um formato array em OBRSDK\HttpClient\Nucleo\HttpCliente->request");
+        }
+
         $this->requestCalling = true;
         try {
             $response = [];
