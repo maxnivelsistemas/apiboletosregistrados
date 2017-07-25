@@ -96,10 +96,20 @@ class ObjetoBoletosRegistrados {
      * token, tenta autenticar por credenciais
      */
     public function verificarAccessToken() {
+        // se nao existe accesstoken
+        if ($this->accessToken == null) {
+            // lança excessao por tentar fazer autenticacao sem accesstoken
+            throw new Exceptions\PreenchimentoIncorreto("Não existe objeto AccessToken registrado no SDK");
+        }
+
+        // se o token estiver expirando
         if ($this->accessToken->getDataToken() + $this->accessToken->getExpireIn() - 10 <= time()) {
+            // é feito a tentativa de criar um novo accessToken
+            // se existe refreshtoken tenta gerar o novo access token atraves do refreshtoken
             if ($this->accessToken->getRefreshToken() != null && strlen($this->accessToken->getRefreshToken()) > 0) {
                 $this->Autenticar()->porRefreshToken($this->accessToken->getRefreshToken());
             } else {
+                // se nao tem refresh token entao gera por credenciais
                 $this->Autenticar()->porCredenciais();
             }
         }

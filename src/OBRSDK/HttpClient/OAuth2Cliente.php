@@ -16,6 +16,13 @@ namespace OBRSDK\HttpClient;
 class OAuth2Cliente extends Nucleo\Instancia {
 
     /**
+     * Testa se o atual accesstoken esta autenticando com sucesso na api
+     */
+    public function testarAutenticacao() {
+        $this->apiCliente->addAuthorization()->get('auth/ping')->getResposta();
+    }
+
+    /**
      * Faz autenticacao na API com as suas credenciais de 'appId' e 'appSecret'
      * Neste caso você consegue acessar seus dados
      * 

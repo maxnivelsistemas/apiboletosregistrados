@@ -22,6 +22,14 @@ class Autenticacao {
     }
 
     /**
+     * Testa se autenticacao atual esta aceitando na API atraves de 
+     * um ping em um endpoint autenticado
+     */
+    public function testar() {
+        $this->oauthCliente->testarAutenticacao();
+    }
+
+    /**
      * Pega a entidade do accesstoken gerado na autenticacao
      * 
      * @return \OBRSDK\Entidades\AccessToken
