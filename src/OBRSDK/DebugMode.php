@@ -43,7 +43,7 @@ abstract class DebugMode {
             if (self::$debugModeStatus) {
                 self::$debugObject->dadosRecebido($uri, $type, json_decode($dados, true), $headers, $statusCode);
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             
         }
     }
