@@ -9,7 +9,7 @@
 namespace OBRSDK;
 
 /**
- * Description of Boletos
+ * Description of ObjetoBoletosRegistrados
  *
  * @author Antonio
  */

@@ -13,7 +13,7 @@ namespace OBRSDK\HttpClient\Nucleo;
  *
  * @author Antonio
  */
-class HttpCliente implements \OBRSDK\HttpClient\Interfaces\ICoreCliente {
+class HttpCliente extends \OBRSDK\DebugMode implements \OBRSDK\HttpClient\Interfaces\ICoreCliente {
 
     /**
      * Base URL para acesso a API boletos registrados
@@ -153,6 +153,8 @@ class HttpCliente implements \OBRSDK\HttpClient\Interfaces\ICoreCliente {
 
             $this->headers = [];
 
+            $this->debugDadosEnviado($uri, $type, $data);
+
             if ($data != null) {
                 $response = $this->client->request($type, $uri, $data);
             } else {
@@ -161,7 +163,9 @@ class HttpCliente implements \OBRSDK\HttpClient\Interfaces\ICoreCliente {
 
             $this->requestCalling = true;
             $this->response = $response->getBody()->getContents();
+            $this->debugDadosRecebido($uri, $type, $this->response, $response->getHeaders(), $response->getStatusCode());
         } catch (\GuzzleHttp\Exception\BadResponseException $ex) {
+            $this->debugDadosRecebido($uri, $type, $ex->getResponse()->getBody()->getContents(), $ex->getResponse()->getHeaders(), $ex->getResponse()->getStatusCode());
             throw new \OBRSDK\Exceptions\RespostaException($ex->getResponse()->getBody()->getContents());
         }
     }
