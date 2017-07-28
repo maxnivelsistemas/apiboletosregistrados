@@ -13,7 +13,7 @@ namespace OBRSDK\Entidades\Abstratos;
  *
  * @author Antonio
  */
-abstract class AEntidadePropriedades {
+abstract class AEntidadePropriedades extends AEntidadePreenchimento {
 
     public function getAtributes($entidade = null) {
         $atributos = get_object_vars($entidade == null ? $this : $entidade);
@@ -35,14 +35,6 @@ abstract class AEntidadePropriedades {
         return $atributosPreenchidos;
     }
 
-    public function setAtributos(array $atributos) {
-        foreach ($atributos as $atributoNome => $valor) {
-            if (property_exists($this, $atributoNome)) {
-                $this->$atributoNome = $valor;
-            }
-        }
-    }
-
     private function percorrerArrayAtributo($valor) {
         $atributoValor = [];
 
@@ -57,9 +49,22 @@ abstract class AEntidadePropriedades {
         return $atributoValor;
     }
 
+    /// ====
+    /// MAGIC METHODS
+    /// ====
+
     public function __get($name) {
         if (property_exists($this, $name)) {
             return $this->$name;
+        }
+    }
+
+    public function __call($metodo, $param) {
+        if (strtolower(substr($metodo, 0, 3)) == "get") {
+            $get = substr($metodo, 3);
+            $property = $this->camelCaseParaUnserScore($get);
+
+            return $this->$property;
         }
     }
 

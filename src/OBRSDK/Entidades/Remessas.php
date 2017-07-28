@@ -31,7 +31,6 @@ class Remessas extends \OBRSDK\Entidades\Abstratos\AEntidadePropriedades {
     /// ATRIBUTOS OBRIGATORIOS
     ///
     /**
-     *
      * @var \OBRSDK\Entidades\Boletos[]
      */
     public $boletos;
@@ -39,5 +38,33 @@ class Remessas extends \OBRSDK\Entidades\Abstratos\AEntidadePropriedades {
     /// ATRIBUTOS OPCIONAIS
     ///
     public $cnab;
+
+    public function __construct() {
+        // inicia o objeto
+        $this->beneficiario = new Beneficiario();
+
+        // inicia o array de objeto
+        $this->boletos = [new Boletos()];
+    }
+
+    public function getRemessaId() {
+        return $this->remessa_id;
+    }
+
+    public function getNomeBanco() {
+        return $this->nome_banco;
+    }
+
+    /**
+     *
+     * @var \OBRSDK\Entidades\Beneficiario 
+     */
+    public function getBeneficiario() {
+        return $this->beneficiario;
+    }
+
+    public function getLink() {
+        return $this->link;
+    }
 
 }

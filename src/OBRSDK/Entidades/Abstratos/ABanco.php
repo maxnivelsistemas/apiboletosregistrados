@@ -18,7 +18,7 @@ abstract class ABanco extends AEntidadePropriedades {
     public function getNomeBancoJson() {
         $called = explode("\\", get_called_class());
         $className = end($called);
-        return ltrim(strtolower(preg_replace('/[A-Z]([A-Z](?![a-z]))*/', '_$0', $className)), '_');
+        return $this->camelCaseParaUnserScore($className);
     }
 
 }

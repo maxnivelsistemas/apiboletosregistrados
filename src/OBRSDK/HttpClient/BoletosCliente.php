@@ -19,8 +19,8 @@ class BoletosCliente extends Nucleo\Instancia {
      * 
      * @param \OBRSDK\Entidades\Abstratos\ABanco $banco
      * @param \OBRSDK\Entidades\Beneficiario $beneficiario
-     * @param type $boletos
-     * @return type
+     * @param \OBRSDK\Entidades\Boletos[] $boletos
+     * @return \OBRSDK\Entidades\Boletos[]
      * @throws \OBRSDK\Exceptions\PreenchimentoIncorreto
      */
     public function gerarBoletos(\OBRSDK\Entidades\Abstratos\ABanco $banco, \OBRSDK\Entidades\Beneficiario $beneficiario, $boletos) {

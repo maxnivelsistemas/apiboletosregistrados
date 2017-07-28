@@ -47,4 +47,18 @@ class RemessasCliente extends Nucleo\Instancia {
         return $remessasResponse;
     }
 
+    /**
+     * @param string $remessa_id
+     * @return \OBRSDK\Entidades\Remessas
+     */
+    public function getRemessaPorId($remessa_id) {
+        $resposta = $this->apiCliente->addAuthorization()
+                        ->get('remessas/' . $remessa_id)->getResposta(true);
+
+        $remessa_resposta = new \OBRSDK\Entidades\Remessas();
+        $remessa_resposta->setAtributos($resposta);
+
+        return $remessa_resposta;
+    }
+
 }
