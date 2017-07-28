@@ -27,8 +27,10 @@ abstract class AEntidadePropriedades extends AEntidadePreenchimento {
                 } else if (is_object($atributoValor)) {
                     $atributoValor = $this->getAtributes($atributoValor);
                 }
-
-                $atributosPreenchidos[$atributoNome] = $atributoValor;
+                
+                if (count($atributoValor) > 0) {
+                    $atributosPreenchidos[$atributoNome] = $atributoValor;
+                }
             }
         }
 
