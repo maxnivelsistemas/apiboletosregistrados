@@ -18,7 +18,7 @@ abstract class ABanco extends AEntidadePropriedades {
     public function getNomeBancoJson() {
         $called = explode("\\", get_called_class());
         $className = end($called);
-        return $this->camelCaseParaUnserScore($className);
+        return $this->pascalCaseParaUnderscore($className);
     }
 
 }
