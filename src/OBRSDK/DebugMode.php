@@ -41,6 +41,14 @@ abstract class DebugMode {
     protected function debugDadosRecebido($uri, $type, $dados, $headers, $statusCode) {
         try {
             if (self::$debugModeStatus) {
+                if ($dados == null) {
+                    $dados = array();
+                }
+
+                if ($headers == null) {
+                    $headers = array();
+                }
+
                 self::$debugObject->dadosRecebido($uri, $type, json_decode($dados, true), $headers, $statusCode);
             }
         } catch (\Exception $ex) {
