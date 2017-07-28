@@ -42,7 +42,7 @@ abstract class DebugMode {
         try {
             if (self::$debugModeStatus) {
                 if ($dados == null) {
-                    $dados = array();
+                    $dados = '{}';
                 }
 
                 if ($headers == null) {
