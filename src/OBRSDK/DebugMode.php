@@ -49,7 +49,13 @@ abstract class DebugMode {
                     $headers = array();
                 }
 
-                self::$debugObject->dadosRecebido($uri, $type, json_decode($dados, true), $headers, $statusCode);
+
+                $json_decode = json_decode($dados, true);
+                if ($json_decode == null) {
+                    $json_decode = array("json_decode_falha" => $dados);
+                }
+
+                self::$debugObject->dadosRecebido($uri, $type, $json_decode, $headers, $statusCode);
             }
         } catch (\Exception $ex) {
             
