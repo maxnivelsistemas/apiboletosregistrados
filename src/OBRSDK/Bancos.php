@@ -17,7 +17,8 @@ class Bancos {
 
     private static $bancos = array(
         'BancoDoBrasil',
-        'Caixa'
+        'Caixa',
+        'Sicoob'
     );
 
     /**
