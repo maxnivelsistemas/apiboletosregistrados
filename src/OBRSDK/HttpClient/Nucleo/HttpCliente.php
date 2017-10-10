@@ -165,8 +165,9 @@ class HttpCliente extends \OBRSDK\DebugMode implements \OBRSDK\HttpClient\Interf
             $this->response = $response->getBody()->getContents();
             $this->debugDadosRecebido($uri, $type, $this->response, $response->getHeaders(), $response->getStatusCode());
         } catch (\GuzzleHttp\Exception\BadResponseException $ex) {
-            $this->debugDadosRecebido($uri, $type, $ex->getResponse()->getBody()->getContents(), $ex->getResponse()->getHeaders(), $ex->getResponse()->getStatusCode());
-            throw new \OBRSDK\Exceptions\RespostaException($ex->getResponse()->getBody()->getContents());
+            $result = $ex->getResponse()->getBody()->getContents();
+            $this->debugDadosRecebido($uri, $type, $result, $ex->getResponse()->getHeaders(), $ex->getResponse()->getStatusCode());
+            throw new \OBRSDK\Exceptions\RespostaException($result);
         }
     }
 
