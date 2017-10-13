@@ -1,5 +1,5 @@
 private.properties
-/nbproject
-/testes.php
-/vendor
-/composer.lock
+nbproject
+testes.php
+vendor
+composer.lock
