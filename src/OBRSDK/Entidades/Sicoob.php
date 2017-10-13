@@ -16,7 +16,5 @@ namespace OBRSDK\Entidades;
 class Sicoob extends Abstratos\ABanco {
 
     public $convenio;
-    public $codigo_beneficiario;
-    public $conta_cedente;
 
 }
