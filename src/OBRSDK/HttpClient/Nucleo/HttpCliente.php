@@ -166,13 +166,12 @@ class HttpCliente extends \OBRSDK\DebugMode implements \OBRSDK\HttpClient\Interf
 
             // se for upload
             if (isset($data['__uploadfile__'])) {
-                $nomeArquivo = explode("/", $data['__uploadfile']);
                 // muda a data para multipart do arquivo
                 $data = [
                     'multipart' => [
                         'name' => 'uploadArquivo',
                         'content' => fopen($data['__uploadfile'], 'r'),
-                        'filename' => end($nomeArquivo)
+                        'filename' => basename($data['__uploadfile'])
                     ]
                 ];
             }
