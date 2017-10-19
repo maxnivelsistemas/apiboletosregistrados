@@ -105,6 +105,11 @@ class HttpCliente extends \OBRSDK\DebugMode implements \OBRSDK\HttpClient\Interf
         return $this;
     }
 
+    public function enviarArquivo($endpoint, $arquivo) {
+        $this->upload($endpoint, $arquivo);
+        return $this;
+    }
+
     private function post($uri, array $post = null) {
         $this->request('POST', $uri, $post);
     }
@@ -129,6 +134,14 @@ class HttpCliente extends \OBRSDK\DebugMode implements \OBRSDK\HttpClient\Interf
         return json_decode($this->response, $assoc);
     }
 
+    private function upload($uri, $arquivo) {
+        if (!file_exists($arquivo)) {
+            throw new \Exception("Arquivo {$arquivo} não encontrado para ser enviado");
+        }
+
+        $this->request('POST', $uri, ["__uploadfile__" => $arquivo]);
+    }
+
     private function request($type, $uri, $data = null) {
         if ($this->requestCalling) {
             throw new \Exception("Não é possivel fazer uma requisicão sem obter a resposta da anterior");
@@ -149,6 +162,19 @@ class HttpCliente extends \OBRSDK\DebugMode implements \OBRSDK\HttpClient\Interf
                 $data = array_merge([
                     'headers' => $this->headers
                         ], $data);
+            }
+
+            // se for upload
+            if (isset($data['__uploadfile__'])) {
+                $nomeArquivo = explode("/", $data['__uploadfile']);
+                // muda a data para multipart do arquivo
+                $data = [
+                    'multipart' => [
+                        'name' => 'uploadArquivo',
+                        'content' => fopen($data['__uploadfile'], 'r'),
+                        'filename' => end($nomeArquivo)
+                    ]
+                ];
             }
 
             $this->headers = [];

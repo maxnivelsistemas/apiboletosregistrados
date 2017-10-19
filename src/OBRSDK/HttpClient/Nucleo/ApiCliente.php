@@ -127,4 +127,16 @@ class ApiCliente implements \OBRSDK\HttpClient\Interfaces\ICoreCliente {
         return $this;
     }
 
+    /**
+     * Faz upload de um arquivo para a API
+     * 
+     * @param string $endpoint
+     * @param string $arquivo
+     * @return \OBRSDK\HttpClient\Nucleo\ApiCliente
+     */
+    public function enviarArquivo($endpoint, $arquivo) {
+        HttpCliente::getInstance()->enviarArquivo($endpoint, $arquivo);
+        return $this;
+    }
+
 }
