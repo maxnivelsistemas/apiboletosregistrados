@@ -24,11 +24,11 @@ class Beneficiario extends Abstratos\AEntidadePropriedades {
     public $conta_digito;
     public $nome_beneficiario;
     public $documento_beneficiario;
+    public $cep_beneficiario;
+    public $uf_beneficiario;
+    public $cidade_beneficiario;
+    public $bairro_beneficiario;
     public $endereco_beneficiario;
     public $endereco_numero_beneficiario;
-    public $bairro_beneficiario;
-    public $cep_beneficiario;
-    public $cidade_beneficiario;
-    public $uf_beneficiario;
 
 }
