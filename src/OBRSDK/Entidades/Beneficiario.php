@@ -18,6 +18,7 @@ class Beneficiario extends Abstratos\AEntidadePropriedades {
     ///
     /// ATRIBUTOS OBRIGATORIOS
     ///
+    public $nosso_numero_inicial;
     public $agencia;
     public $agencia_digito;
     public $conta;
