@@ -52,7 +52,7 @@ class ObjetoBoletosRegistrados {
      * 
      * @return \OBRSDK\Autenticacao
      */
-    public function Autenticar() {
+    public function autenticar() {
         return $this->autenticacao;
     }
 
@@ -107,10 +107,10 @@ class ObjetoBoletosRegistrados {
             // é feito a tentativa de criar um novo accessToken
             // se existe refreshtoken tenta gerar o novo access token atraves do refreshtoken
             if ($this->accessToken->getRefreshToken() != null && strlen($this->accessToken->getRefreshToken()) > 0) {
-                $this->Autenticar()->porRefreshToken($this->accessToken->getRefreshToken());
+                $this->autenticar()->porRefreshToken($this->accessToken->getRefreshToken());
             } else {
                 // se nao tem refresh token entao gera por credenciais
-                $this->Autenticar()->porCredenciais();
+                $this->autenticar()->porCredenciais();
             }
         }
     }
