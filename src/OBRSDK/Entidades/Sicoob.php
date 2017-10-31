@@ -17,4 +17,8 @@ class Sicoob extends Abstratos\ABanco {
 
     public $convenio;
 
+    public function getConvenio() {
+        return $this->convenio;
+    }
+
 }

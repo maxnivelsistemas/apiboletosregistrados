@@ -17,4 +17,8 @@ class Caixa extends Abstratos\ABanco {
 
     public $codigo_cedente;
 
+    public function getCodigoCedente() {
+        return $this->codigo_cedente;
+    }
+
 }

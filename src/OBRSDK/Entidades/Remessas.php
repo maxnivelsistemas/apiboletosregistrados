@@ -67,4 +67,16 @@ class Remessas extends \OBRSDK\Entidades\Abstratos\AEntidadePropriedades {
         return $this->link;
     }
 
+    /**
+     * 
+     * @return \OBRSDK\Entidades\Boletos[]
+     */
+    public function getBoletos() {
+        return $this->boletos;
+    }
+
+    public function getCnab() {
+        return $this->cnab;
+    }
+
 }

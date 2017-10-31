@@ -48,10 +48,6 @@ class Boletos extends Abstratos\AEntidadePropriedades {
     public $aceite;
     public $local_pagamento;
 
-    ///
-    /// GETS DOS ATRIBUTOS DE RESPOSTA
-    ///
-
     public function getBoletoId() {
         return $this->boleto_id;
     }
@@ -66,6 +62,78 @@ class Boletos extends Abstratos\AEntidadePropriedades {
 
     public function getLink() {
         return $this->link;
+    }
+
+    public function getNomeSacado() {
+        return $this->nome_sacado;
+    }
+
+    public function getDocumentoSacado() {
+        return $this->documento_sacado;
+    }
+
+    public function getEnderecoSacado() {
+        return $this->endereco_sacado;
+    }
+
+    public function getBairroSacado() {
+        return $this->bairro_sacado;
+    }
+
+    public function getCepSacado() {
+        return $this->cep_sacado;
+    }
+
+    public function getCidadeSacado() {
+        return $this->cidade_sacado;
+    }
+
+    public function getUfSacado() {
+        return $this->uf_sacado;
+    }
+
+    public function getDataVencimento() {
+        return $this->data_vencimento;
+    }
+
+    public function getValorDocumento() {
+        return $this->valor_documento;
+    }
+
+    public function getDataMulta() {
+        return $this->data_multa;
+    }
+
+    public function getValorDesconto() {
+        return $this->valor_desconto;
+    }
+
+    public function getValorMulta() {
+        return $this->valor_multa;
+    }
+
+    public function getValorJurosDiario() {
+        return $this->valor_juros_diario;
+    }
+
+    public function getDiasPagVencimento() {
+        return $this->dias_pag_vencimento;
+    }
+
+    public function getNumeroDocumento() {
+        return $this->numero_documento;
+    }
+
+    public function getSequencial() {
+        return $this->sequencial;
+    }
+
+    public function getAceite() {
+        return $this->aceite;
+    }
+
+    public function getLocalPagamento() {
+        return $this->local_pagamento;
     }
 
     /**

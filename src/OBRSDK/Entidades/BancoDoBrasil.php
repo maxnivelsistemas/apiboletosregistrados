@@ -22,5 +22,23 @@ class BancoDoBrasil extends Abstratos\ABanco {
     public $carteira;
     public $carteira_variacao;
     public $carteira_modalidade;
+    
+    public function getConvenio() {
+        return $this->convenio;
+    }
+
+    public function getCarteira() {
+        return $this->carteira;
+    }
+
+    public function getCarteira_variacao() {
+        return $this->carteira_variacao;
+    }
+
+    public function getCarteiraModalidade() {
+        return $this->carteira_modalidade;
+    }
+
+
 
 }
