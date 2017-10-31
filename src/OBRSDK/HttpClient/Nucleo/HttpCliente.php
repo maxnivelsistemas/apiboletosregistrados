@@ -158,22 +158,24 @@ class HttpCliente extends \OBRSDK\DebugMode implements \OBRSDK\HttpClient\Interf
         try {
             $response = [];
 
-            if (count($this->headers) > 0) {
-                $data = array_merge([
-                    'headers' => $this->headers
-                        ], $data);
-            }
-
             // se for upload
             if (isset($data['__uploadfile__'])) {
                 // muda a data para multipart do arquivo
                 $data = [
                     'multipart' => [
-                        'name' => 'uploadArquivo',
-                        'content' => fopen($data['__uploadfile'], 'r'),
-                        'filename' => basename($data['__uploadfile'])
+                        [
+                            'name' => 'uploadArquivo',
+                            'contents' => file_get_contents($data['__uploadfile__']),
+                            'filename' => basename($data['__uploadfile__'])
+                        ]
                     ]
                 ];
+            }
+
+            if (count($this->headers) > 0) {
+                $data = array_merge([
+                    'headers' => $this->headers
+                        ], $data);
             }
 
             $this->headers = [];
