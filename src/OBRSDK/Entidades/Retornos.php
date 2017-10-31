@@ -12,6 +12,8 @@ class Retornos extends \OBRSDK\Entidades\Abstratos\AEntidadePropriedades {
     /// atributos de resposta
     ///
     protected $retorno_id;
+    protected $banco;
+    protected $data_recebimento;
 
     /**
      *
@@ -21,6 +23,22 @@ class Retornos extends \OBRSDK\Entidades\Abstratos\AEntidadePropriedades {
 
     public function getRetornoId() {
         return $this->retorno_id;
+    }
+
+    /**
+     * Banco gerador do arquivo de retorno
+     * @return string
+     */
+    public function getBanco() {
+        return $this->banco;
+    }
+
+    /**
+     * Data em que a API recebeu o retorno
+     * @return string
+     */
+    public function getDataRecebimento() {
+        return $this->data_recebimento;
     }
 
     /**
