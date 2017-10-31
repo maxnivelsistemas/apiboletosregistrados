@@ -26,4 +26,20 @@ class RetornosCliente extends Nucleo\Instancia {
         return $respostaEntidade;
     }
 
+    /**
+     * Pega dados de retorno enviado anteriormente
+     * 
+     * @param string $retornoId
+     * @return \OBRSDK\Entidades\Retornos
+     */
+    public function getRetorno($retornoId) {
+        $resposta = $this->apiCliente->addAuthorization()
+                ->get('retornos/' . $retornoId)
+                ->getResposta(true);
+
+        $respostaEntidade = new \OBRSDK\Entidades\Retornos();
+        $respostaEntidade->setAtributos($resposta);
+        return $respostaEntidade;
+    }
+
 }
