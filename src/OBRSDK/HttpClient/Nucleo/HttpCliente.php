@@ -158,7 +158,7 @@ class HttpCliente implements \OBRSDK\HttpClient\Interfaces\ICoreCliente {
 
         $dataObjeto = new ApiData($data);
         $dataObjeto->addHeaders($this->headers);
-        $this->headers[];
+        $this->headers = [];
 
         $requisicao = new ApiRequisicao($this->client, $type, $uri, $dataObjeto);
         $this->response = $requisicao->getRespostaConteudo();

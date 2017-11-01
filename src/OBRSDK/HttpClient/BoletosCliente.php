@@ -84,7 +84,7 @@ class BoletosCliente extends Nucleo\Instancia {
      * @param \OBRSDK\Entidades\Beneficiario $beneficiario
      * @return array
      */
-    private function getBodyGerarBoletos(OBRSDK\Entidades\Abstratos\ABanco $banco, \OBRSDK\Entidades\Beneficiario $beneficiario) {
+    private function getBodyGerarBoletos(\OBRSDK\Entidades\Abstratos\ABanco $banco, \OBRSDK\Entidades\Beneficiario $beneficiario) {
         $boletos_dados = [];
         foreach ($this->boletosParaGerar as $boleto) {
             $boletos_dados[] = $boleto->getAtributes();

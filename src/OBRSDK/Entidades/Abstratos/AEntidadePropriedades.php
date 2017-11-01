@@ -17,14 +17,17 @@ abstract class AEntidadePropriedades extends AEntidadePreenchimento {
 
     public function getAtributes($entidade = null) {
         $atributos = get_object_vars($entidade == null ? $this : $entidade);
-
         $atributosPreenchidos = [];
         foreach ($atributos as $atributoNome => $valor) {
+            $atributoValor = null;
             if ($valor != null) {
-                $atributosPreenchidos[$atributoNome] = $this->getAtributoValor($valor);
+                $atributoValor = $this->getAtributoValor($valor);
+            }
+            
+            if (count($atributoValor) > 0) {
+                $atributosPreenchidos[$atributoNome] = $atributoValor;
             }
         }
-
         return $atributosPreenchidos;
     }
 
