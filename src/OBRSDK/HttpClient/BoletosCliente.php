@@ -40,32 +40,17 @@ class BoletosCliente extends Nucleo\Instancia {
      * @throws \OBRSDK\Exceptions\PreenchimentoIncorreto
      */
     public function gerarBoletos(\OBRSDK\Entidades\Abstratos\ABanco $banco, \OBRSDK\Entidades\Beneficiario $beneficiario) {
-        $boletos = $this->boletosParaGerar;
-        $boletos_dados = [];
-        foreach ($boletos as $boleto) {
-            $boletos_dados[] = $boleto->getAtributes();
-        }
-
-        $response = $this->apiCliente->addAuthorization()
-                ->postJson('boletos', [
-                    $banco->getNomeBancoJson() => $banco->getAtributes(),
-                    "beneficiario" => $beneficiario->getAtributes(),
-                    "boletos" => $boletos_dados
-                ])
+        $resposta = $this->apiCliente->addAuthorization()
+                ->postJson('boletos', $this->getBodyGerarBoletos($banco, $beneficiario))
                 ->getRespostaArray();
 
-        $this->boletosParaGerar = [];
+        $quantidadeBoletos = !isset($resposta['boletos']) ? 0 : count($resposta['boletos']);
 
-        $quantidadeBoletos = 0;
-        if (isset($response['boleots'])) {
-            $quantidadeBoletos = is_array($response['boletos']) ? count($response['boletos']) : 1;
-        }
-
+        $boletos = $this->boletosParaGerar;
         for ($i = 0; $i < $quantidadeBoletos; $i++) {
-            // preenche o objeto de boletos recebido
-            // com as informacoes recebida da api
-            $boletos[$i]->setAtributos($response['boletos'][$i]);
+            $boletos[$i]->setAtributos($resposta['boletos'][$i]);
         }
+        $this->boletosParaGerar = [];
 
         return $boletos;
     }
@@ -91,6 +76,25 @@ class BoletosCliente extends Nucleo\Instancia {
         }
 
         return $boletos;
+    }
+
+    /**
+     * 
+     * @param \OBRSDK\HttpClient\OBRSDK\Entidades\Abstratos\ABanco $banco
+     * @param \OBRSDK\Entidades\Beneficiario $beneficiario
+     * @return array
+     */
+    private function getBodyGerarBoletos(OBRSDK\Entidades\Abstratos\ABanco $banco, \OBRSDK\Entidades\Beneficiario $beneficiario) {
+        $boletos_dados = [];
+        foreach ($this->boletosParaGerar as $boleto) {
+            $boletos_dados[] = $boleto->getAtributes();
+        }
+
+        return [
+            $banco->getNomeBancoJson() => $banco->getAtributes(),
+            "beneficiario" => $beneficiario->getAtributes(),
+            "boletos" => $boletos_dados
+        ];
     }
 
 }

@@ -44,18 +44,23 @@ abstract class DebugMode {
                 return;
             }
 
-            if ($dados == null) {
-                $dados = '{}';
-            }
-
-            $json_decode = json_decode($dados, true);
-            if ($json_decode == null) {
-                $json_decode = array("json_decode_falha" => $dados);
-            }
+            $json_decode = null;
+            $this->filtrarDados($dados, $json_decode);
 
             self::$debugObject->dadosRecebido($uri, $type, $json_decode, $headers == null ? [] : $headers, $statusCode);
         } catch (\Exception $ex) {
             return;
+        }
+    }
+
+    private function filtrarDados(&$dados, &$json_decode) {
+        if (is_null($dados)) {
+            $dados = '{}';
+        }
+
+        $json_decode = json_decode($dados, true);
+        if ($json_decode == null) {
+            $json_decode = ['json_decode_falha' => $dados];
         }
     }
 

@@ -13,7 +13,7 @@ namespace OBRSDK\HttpClient\Nucleo;
  *
  * @author Antonio
  */
-class HttpCliente extends \OBRSDK\DebugMode implements \OBRSDK\HttpClient\Interfaces\ICoreCliente {
+class HttpCliente implements \OBRSDK\HttpClient\Interfaces\ICoreCliente {
 
     /**
      * Base URL para acesso a API boletos registrados
@@ -157,29 +157,12 @@ class HttpCliente extends \OBRSDK\DebugMode implements \OBRSDK\HttpClient\Interf
         }
 
         $dataObjeto = new ApiData($data);
+        $dataObjeto->addHeaders($this->headers);
+        $this->headers[];
 
-        try {
-            $response = [];
-
-            $dataObjeto->addHeaders($this->headers);
-            $this->headers = [];
-
-            $this->debugDadosEnviado($uri, $type, $dataObjeto->getData());
-
-            if ($dataObjeto->getDataSize() > 0) {
-                $response = $this->client->request($type, $uri, $dataObjeto->getData());
-            } else {
-                $response = $this->client->request($type, $uri);
-            }
-
-            $this->requestCalling = true;
-            $this->response = $response->getBody()->getContents();
-            $this->debugDadosRecebido($uri, $type, $this->response, $response->getHeaders(), $response->getStatusCode());
-        } catch (\GuzzleHttp\Exception\BadResponseException $ex) {
-            $result = $ex->getResponse()->getBody()->getContents();
-            $this->debugDadosRecebido($uri, $type, $result, $ex->getResponse()->getHeaders(), $ex->getResponse()->getStatusCode());
-            throw new \OBRSDK\Exceptions\RespostaException($result);
-        }
+        $requisicao = new ApiRequisicao($this->client, $type, $uri, $dataObjeto);
+        $this->response = $requisicao->getRespostaConteudo();
+        $this->requestCalling = true;
     }
 
 }
