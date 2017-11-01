@@ -15,22 +15,30 @@ namespace OBRSDK\Entidades\Abstratos;
  */
 abstract class AEntidadePropriedades extends AEntidadePreenchimento {
 
+    /**
+     * 
+     * @param object $entidade
+     * @return array
+     */
     public function getAtributes($entidade = null) {
         $atributos = get_object_vars($entidade == null ? $this : $entidade);
         $atributosPreenchidos = [];
         foreach ($atributos as $atributoNome => $valor) {
-            $atributoValor = null;
-            if ($valor != null) {
-                $atributoValor = $this->getAtributoValor($valor);
+            $atributoValor = $this->getAtributoValor($valor);
+            if ((is_array($atributoValor) && count($atributoValor) == 0) ||
+                    $atributoValor == null) {
+                continue;
             }
-            
-            if (count($atributoValor) > 0) {
-                $atributosPreenchidos[$atributoNome] = $atributoValor;
-            }
+            $atributosPreenchidos[$atributoNome] = $atributoValor;
         }
         return $atributosPreenchidos;
     }
 
+    /**
+     * 
+     * @param array $valor
+     * @return array
+     */
     private function percorrerArrayAtributo($valor) {
         $atributoValor = [];
 
