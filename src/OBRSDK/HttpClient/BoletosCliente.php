@@ -52,8 +52,10 @@ class BoletosCliente extends Nucleo\Instancia {
         $response = $this->apiCliente->addAuthorization()
                 ->postJson('boletos', $param)
                 ->getResposta(true);
+        
+        $quantidadeBoletos = count($response['boletos']);
 
-        for ($i = 0; $i < count($response['boletos']); $i++) {
+        for ($i = 0; $i < $quantidadeBoletos; $i++) {
             // preenche o objeto de boletos recebido
             // com as informacoes recebida da api
             $boletos[$i]->setAtributos($response['boletos'][$i]);
