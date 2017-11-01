@@ -9,36 +9,47 @@ namespace OBRSDK\HttpClient;
 class RetornosCliente extends Nucleo\Instancia {
 
     /**
-     * Faz o upload do arquivo de retorno do banco para a API
+     * Pega todos os arquivos de retornos já enviado para a API
      * 
-     * @param string $arquivo
-     * @return \OBRSDK\Entidades\Retornos Lista de boletos e propriedades que 
-     * foram processados pelo arquivo de retorno
+     * @return \OBRSDK\Entidades\Retornos[]
      */
-    public function enviarArquivoRetorno($arquivo) {
+    public function getListaRetornos() {
         $resposta = $this->apiCliente->addAuthorization()
-                ->enviarArquivo('retornos', $arquivo)
-                ->getResposta(true);
+                        ->get('retornos')->getResposta(true);
 
-        $respostaEntidade = new \OBRSDK\Entidades\Retornos();
-        $respostaEntidade->setAtributos($resposta);
+        $retornos = [];
+        foreach ($resposta->retornos as $retorno) {
+            $retornoObjeto = new \OBRSDK\Entidades\Retornos();
+            $retornoObjeto->setAtributos($retorno);
 
-        return $respostaEntidade;
+            $retornos[] = $retornoObjeto;
+        }
+
+        return $retornos;
     }
 
     /**
-     * Pega dados de retorno enviado anteriormente
+     * Se passado o parametro isFile como true, a identificacao deve ser 
+     * o caminho para o arquivo.
+     * Se não, deve ser o ID de retorno enviado anteriormente
      * 
-     * @param string $retornoId
+     * @param string $identificacao
+     * @param bool $isFile
      * @return \OBRSDK\Entidades\Retornos
      */
-    public function getRetorno($retornoId) {
-        $resposta = $this->apiCliente->addAuthorization()
-                ->get('retornos/' . $retornoId)
-                ->getResposta(true);
+    public function getRetornoDados($identificacao, $isFile = false) {
+        $this->apiCliente->addAuthorization();
+        if ($isFile) {
+            $this->apiCliente->enviarArquivo('retornos', $identificacao);
+        } else {
+            $this->apiCliente->get('retornos/' . $identificacao);
+        }
+
+        $resposta = $this->apiCliente->getResposta(true);
 
         $respostaEntidade = new \OBRSDK\Entidades\Retornos();
         $respostaEntidade->setAtributos($resposta);
+
         return $respostaEntidade;
     }
 
