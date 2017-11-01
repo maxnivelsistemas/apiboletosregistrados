@@ -72,7 +72,7 @@ class BoletosCliente extends Nucleo\Instancia {
 
     /**
      * 
-     * @param \OBRSDK\HttpClient\OBRSDK\Entidades\Abstratos\ABanco $banco
+     * @param \OBRSDK\Entidades\Abstratos\ABanco $banco
      * @param \OBRSDK\Entidades\Beneficiario $beneficiario
      * @return array
      */
