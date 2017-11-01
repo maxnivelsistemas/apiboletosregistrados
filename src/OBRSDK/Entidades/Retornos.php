@@ -17,7 +17,7 @@ class Retornos extends \OBRSDK\Entidades\Abstratos\AEntidadePropriedades {
 
     /**
      *
-     * @var @var \OBRSDK\Entidades\Boletos[]
+     * @var \OBRSDK\Entidades\Boletos[]
      */
     protected $boletos;
 

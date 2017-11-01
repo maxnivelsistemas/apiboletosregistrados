@@ -64,7 +64,7 @@ abstract class AEntidadePropriedades extends AEntidadePreenchimento {
     public function __call($metodo, $param) {
         if (strtolower(substr($metodo, 0, 3)) == "get") {
             $get = substr($metodo, 3);
-            $property = $this->camelCaseParaUnserScore($get);
+            $property = $this->pascalCaseParaUnderscore($get);
 
             return $this->$property;
         }

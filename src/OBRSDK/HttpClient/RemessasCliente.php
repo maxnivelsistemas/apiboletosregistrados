@@ -24,8 +24,9 @@ class RemessasCliente extends Nucleo\Instancia {
         $remessas_dados = $remessas->getAtributes();
         $boletos = [];
         foreach ($remessas_dados['boletos'] as $boleto) {
-            $boletoArr['boleto_id'] = $boleto['boleto_id'];
-            $boletos[] = $boletoArr;
+            $boletos[] = [
+                "boleto_id" => $boleto['boleto_id']
+            ];
         }
         // remove dados anterior
         unset($remessas_dados['boletos']);

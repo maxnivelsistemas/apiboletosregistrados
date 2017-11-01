@@ -27,6 +27,4 @@ interface ICoreCliente {
     public function delete($endpoint);
 
     public function get($endpoint, array $queryString = null);
-
-    public function getResposta($assoc = false);
 }

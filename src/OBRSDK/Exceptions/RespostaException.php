@@ -57,6 +57,10 @@ class RespostaException extends \Exception {
         return $this->mensagem;
     }
 
+    /**
+     * 
+     * @return object
+     */
     public function getError() {
         return $this->error;
     }

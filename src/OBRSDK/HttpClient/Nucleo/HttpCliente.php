@@ -73,7 +73,7 @@ class HttpCliente extends \OBRSDK\DebugMode implements \OBRSDK\HttpClient\Interf
     /**
      * Envia um POST para API com JSON no body application/json
      * 
-     * @param type $endpoint
+     * @param string $endpoint
      * @param array $body
      * @return \OBRSDK\HttpClient\Nucleo\HttpCliente
      */

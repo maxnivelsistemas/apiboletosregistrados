@@ -34,7 +34,7 @@ abstract class DebugMode {
                 self::$debugObject->dadosEnviado($uri, $type, $dados);
             }
         } catch (\Exception $ex) {
-            
+            return;
         }
     }
 
@@ -58,7 +58,7 @@ abstract class DebugMode {
                 self::$debugObject->dadosRecebido($uri, $type, $json_decode, $headers, $statusCode);
             }
         } catch (\Exception $ex) {
-            
+            return;
         }
     }
 

@@ -51,7 +51,7 @@ class OAuth2Cliente extends Nucleo\Instancia {
             throw new \OBRSDK\Exceptions\AutorizationException($error, filter_input(INPUT_GET, 'error_description'));
         }
 
-        $authorizationCode = $code == null ? filter_input(INPUT_GET, 'code') : $code;
+        $authorizationCode = $code === null ? filter_input(INPUT_GET, 'code') : $code;
         $this->oauth([
             'grant_type' => 'authorization_code',
             'code' => $authorizationCode
@@ -79,12 +79,12 @@ class OAuth2Cliente extends Nucleo\Instancia {
 
     /**
      * 
-     * @param type $config
+     * @param array $config
      * @return \OBRSDK\ObjetoBoletosRegistrados
      * @throws \OBRSDK\Exceptions\AutenticacaoException
      * @throws \OBRSDK\Exceptions\RespostaException
      */
-    private function oauth($config) {
+    private function oauth(array $config) {
         try {
             $param = array_merge(
                     $config, [

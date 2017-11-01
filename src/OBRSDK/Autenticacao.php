@@ -75,11 +75,11 @@ class Autenticacao {
     }
 
     /**
-     * Cria a URL de pedir autorizacao de acesso para um usuário na API
+     * Pega a URL de pedir autorizacao de acesso para um usuário na API
      * 
      * @param array $escopos Passar os escopos que deseja acessar do usuário em formato array
      * @param string $state Valor de estado na URL, você pode fornecer um estado proprio para gerenciar os retornos
-     * @return type
+     * @return string
      */
     public function getUrlAutorizacao(array $escopos, $state = null) {
         $url = HttpClient\Nucleo\HttpCliente::BASE_URL . HttpClient\Nucleo\HttpCliente::API_VERSION . '/auth/authorization';
@@ -88,7 +88,7 @@ class Autenticacao {
             'response_type' => 'code',
             'client_id' => $this->oauthCliente->getInstancia()->getAppId(),
             'scope' => implode(" ", $escopos),
-            'state' => $state == null ? time() : $state
+            'state' => $state === null || $state == '' ? time() : $state
         ];
 
         return $url . '?' . http_build_query($queryString);

@@ -15,6 +15,10 @@ namespace OBRSDK\Exceptions;
  */
 class AutenticacaoException extends \Exception {
 
+    /**
+     *
+     * @var RespostaException 
+     */
     private $respostaException;
 
     public function __construct(RespostaException $ex) {
@@ -26,7 +30,7 @@ class AutenticacaoException extends \Exception {
     }
 
     public function getErro() {
-        $this->respostaException->getErro()->OAuth2->error_description;
+        $this->respostaException->getError()->OAuth2->error_description;
     }
 
 }
