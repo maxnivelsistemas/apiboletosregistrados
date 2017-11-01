@@ -23,19 +23,10 @@ class RemessasCliente extends Nucleo\Instancia {
     public function gerarRemessa(\OBRSDK\Entidades\Remessas $remessas) {
         $remessas_dados = $this->organizarDadosRemessa($remessas->getAtributes());
 
-        $resposta = $this->apiCliente->addAuthorization()
-                ->postJson('remessas', $remessas_dados)
-                ->getRespostaArray();
+        $this->apiCliente->addAuthorization()
+                ->postJson('remessas', $remessas_dados);
 
-        $remessasResponse = [];
-        // preenche com objeto de resposta
-        foreach ($resposta['remessas'] as $remessa) {
-            $remessaEntidade = new \OBRSDK\Entidades\Remessas();
-            $remessaEntidade->setAtributos($remessa);
-            $remessasResponse[] = $remessaEntidade;
-        }
-
-        return $remessasResponse;
+        return $this->getResultadoLista('remessas', new \OBRSDK\Entidades\Remessas());
     }
 
     /**

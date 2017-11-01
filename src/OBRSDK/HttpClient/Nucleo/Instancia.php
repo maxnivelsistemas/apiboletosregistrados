@@ -36,4 +36,23 @@ abstract class Instancia {
         return $this->instancia;
     }
 
+    /**
+     * 
+     * @param string $index
+     * @param \OBRSDK\Entidades\Abstratos\AEntidadePropriedades $entidade
+     * @return \OBRSDK\Entidades\Abstratos\AEntidadePropriedades
+     */
+    protected function getResultadoLista($index, \OBRSDK\Entidades\Abstratos\AEntidadePropriedades $entidade) {
+        $resposta = $this->apiCliente
+                ->getRespostaArray();
+
+        $lista = [];
+        foreach ($resposta[$index] as $resultado) {
+            $entidade->setAtributos($resultado);
+            $lista[] = $entidade;
+        }
+
+        return $lista;
+    }
+
 }

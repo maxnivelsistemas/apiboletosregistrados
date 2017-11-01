@@ -64,18 +64,10 @@ class BoletosCliente extends Nucleo\Instancia {
     public function listarBoletos(\OBRSDK\Entidades\Beneficiario $beneficiario, array $query_string_opcional) {
         $query_string = array_merge($beneficiario->getAtributes(), $query_string_opcional);
 
-        $response = $this->apiCliente->addAuthorization()
-                ->get('boletos', $query_string)
-                ->getRespostaArray();
+        $this->apiCliente->addAuthorization()
+                ->get('boletos', $query_string);
 
-        $boletos = [];
-        foreach ($response['boletos'] as $boleto) {
-            $boletoEntidade = new \OBRSDK\Entidades\Boletos();
-            $boletoEntidade->setAtributos($boleto);
-            $boletos[] = $boletoEntidade;
-        }
-
-        return $boletos;
+        return $this->getResultadoLista('boletos', new \OBRSDK\Entidades\Boletos());
     }
 
     /**

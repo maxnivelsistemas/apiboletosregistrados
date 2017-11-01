@@ -44,7 +44,7 @@ abstract class DebugMode {
                 return;
             }
 
-            $json_decode = null;
+            $json_decode = [];
             $this->filtrarDados($dados, $json_decode);
 
             self::$debugObject->dadosRecebido($uri, $type, $json_decode, $headers == null ? [] : $headers, $statusCode);
