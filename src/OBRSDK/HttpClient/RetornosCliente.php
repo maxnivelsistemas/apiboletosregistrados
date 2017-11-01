@@ -15,7 +15,7 @@ class RetornosCliente extends Nucleo\Instancia {
      */
     public function getListaRetornos() {
         $resposta = $this->apiCliente->addAuthorization()
-                        ->get('retornos')->getRespostaArray(true);
+                        ->get('retornos')->getRespostaArray();
 
         $retornos = [];
         foreach ($resposta->retornos as $retorno) {
@@ -45,7 +45,7 @@ class RetornosCliente extends Nucleo\Instancia {
             $this->apiCliente->get('retornos/' . $identificacao);
         }
 
-        $resposta = $this->apiCliente->getRespostaArray(true);
+        $resposta = $this->apiCliente->getRespostaArray();
 
         $respostaEntidade = new \OBRSDK\Entidades\Retornos();
         $respostaEntidade->setAtributos($resposta);

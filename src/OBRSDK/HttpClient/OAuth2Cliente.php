@@ -93,7 +93,7 @@ class OAuth2Cliente extends Nucleo\Instancia {
                     ]
             );
 
-            $response = $this->apiCliente->postParam('auth/token', $param)->getRespostaArray(true);
+            $response = $this->apiCliente->postParam('auth/token', $param)->getRespostaArray();
 
             if (!isset($response['refresh_token'])) {
                 $response['refresh_token'] = null;
