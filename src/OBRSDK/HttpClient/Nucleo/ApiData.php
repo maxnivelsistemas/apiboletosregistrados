@@ -60,7 +60,7 @@ class ApiData {
             'headers' => $headers
                 ], $this->data);
 
-        $this->dataSize += 1;
+        $this->dataSize = count($this->data);
     }
 
     private function verificarSeArquivo() {
