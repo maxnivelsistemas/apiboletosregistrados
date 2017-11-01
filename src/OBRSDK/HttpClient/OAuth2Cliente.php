@@ -19,7 +19,7 @@ class OAuth2Cliente extends Nucleo\Instancia {
      * Testa se o atual accesstoken esta autenticando com sucesso na api
      */
     public function testarAutenticacao() {
-        $this->apiCliente->addAuthorization()->get('auth/ping')->getResposta();
+        $this->apiCliente->addAuthorization()->get('auth/ping')->getRespostaObject();
     }
 
     /**
@@ -93,7 +93,7 @@ class OAuth2Cliente extends Nucleo\Instancia {
                     ]
             );
 
-            $response = $this->apiCliente->postParam('auth/token', $param)->getResposta(true);
+            $response = $this->apiCliente->postParam('auth/token', $param)->getRespostaArray(true);
 
             if (!isset($response['refresh_token'])) {
                 $response['refresh_token'] = null;

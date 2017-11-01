@@ -34,7 +34,7 @@ class RemessasCliente extends Nucleo\Instancia {
 
         $resposta = $this->apiCliente->addAuthorization()
                 ->postJson('remessas', $remessas_dados)
-                ->getResposta(true);
+                ->getRespostaArray(true);
 
         $remessasResponse = [];
         // preenche com objeto de resposta
@@ -53,7 +53,7 @@ class RemessasCliente extends Nucleo\Instancia {
      */
     public function getRemessaPorId($remessa_id) {
         $resposta = $this->apiCliente->addAuthorization()
-                        ->get('remessas/' . $remessa_id)->getResposta(true);
+                        ->get('remessas/' . $remessa_id)->getRespostaArray(true);
 
         $remessa_resposta = new \OBRSDK\Entidades\Remessas();
         $remessa_resposta->setAtributos($resposta);

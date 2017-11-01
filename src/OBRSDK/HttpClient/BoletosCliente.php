@@ -51,7 +51,7 @@ class BoletosCliente extends Nucleo\Instancia {
 
         $response = $this->apiCliente->addAuthorization()
                 ->postJson('boletos', $param)
-                ->getResposta(true);
+                ->getRespostaArray(true);
         
         $quantidadeBoletos = count($response['boletos']);
 
@@ -75,7 +75,7 @@ class BoletosCliente extends Nucleo\Instancia {
 
         $response = $this->apiCliente->addAuthorization()
                 ->get('boletos', $query_string)
-                ->getResposta(true);
+                ->getRespostaArray(true);
 
         $boletos = [];
         foreach ($response['boletos'] as $boleto) {

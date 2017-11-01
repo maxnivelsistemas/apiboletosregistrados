@@ -82,12 +82,18 @@ class ApiCliente implements \OBRSDK\HttpClient\Interfaces\ICoreCliente {
 
     /**
      * Pega a resposta da requisição feita
-     * 
-     * @param bool $assoc
-     * @return array|object
+     * @return array
      */
-    public function getResposta($assoc = false) {
-        return HttpCliente::getInstance()->getResposta($assoc);
+    public function getRespostaArray() {
+        return HttpCliente::getInstance()->getResposta(true);
+    }
+
+    /**
+     * Pega a resposta da requisição feita
+     * @return object
+     */
+    public function getRespostaObject() {
+        return HttpCliente::getInstance()->getResposta(false);
     }
 
     /**

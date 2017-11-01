@@ -15,7 +15,7 @@ class RetornosCliente extends Nucleo\Instancia {
      */
     public function getListaRetornos() {
         $resposta = $this->apiCliente->addAuthorization()
-                        ->get('retornos')->getResposta(true);
+                        ->get('retornos')->getRespostaArray(true);
 
         $retornos = [];
         foreach ($resposta->retornos as $retorno) {
@@ -45,11 +45,7 @@ class RetornosCliente extends Nucleo\Instancia {
             $this->apiCliente->get('retornos/' . $identificacao);
         }
 
-        $resposta = $this->apiCliente->getResposta(true);
-
-        if (!is_array($resposta)) {
-            throw new \OBRSDK\Exceptions\RespostaException("Não é array");
-        }
+        $resposta = $this->apiCliente->getRespostaArray(true);
 
         $respostaEntidade = new \OBRSDK\Entidades\Retornos();
         $respostaEntidade->setAtributos($resposta);

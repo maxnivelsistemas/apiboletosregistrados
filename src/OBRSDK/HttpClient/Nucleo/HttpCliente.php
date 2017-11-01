@@ -131,7 +131,16 @@ class HttpCliente extends \OBRSDK\DebugMode implements \OBRSDK\HttpClient\Interf
 
     public function getResposta($assoc = false) {
         $this->requestCalling = false;
-        return json_decode($this->response, $assoc);
+        $decoded = json_decode($this->response, $assoc);
+
+        if ($decoded === false) {
+            throw new \OBRSDK\Exceptions\RespostaException(json_encode([
+                "mensagem" => "Não foi possivel fazer a leitura da resposta",
+                "body" => $this->response
+            ]));
+        }
+
+        return $decoded;
     }
 
     private function upload($uri, $arquivo) {
