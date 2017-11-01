@@ -47,6 +47,10 @@ class RetornosCliente extends Nucleo\Instancia {
 
         $resposta = $this->apiCliente->getResposta(true);
 
+        if (!is_array($resposta)) {
+            throw new \OBRSDK\Exceptions\RespostaException("Não é array");
+        }
+
         $respostaEntidade = new \OBRSDK\Entidades\Retornos();
         $respostaEntidade->setAtributos($resposta);
 
