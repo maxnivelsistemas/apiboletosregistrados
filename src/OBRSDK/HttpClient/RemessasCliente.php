@@ -21,17 +21,7 @@ class RemessasCliente extends Nucleo\Instancia {
      * @return \OBRSDK\Entidades\Remessas[]
      */
     public function gerarRemessa(\OBRSDK\Entidades\Remessas $remessas) {
-        $remessas_dados = $remessas->getAtributes();
-        $boletos = [];
-        foreach ($remessas_dados['boletos'] as $boleto) {
-            $boletos[] = [
-                "boleto_id" => $boleto['boleto_id']
-            ];
-        }
-        // remove dados anterior
-        unset($remessas_dados['boletos']);
-        // seta com dados atualizado
-        $remessas_dados['boletos'] = $boletos;
+        $remessas_dados = $this->organizarDadosRemessa($remessas->getAtributes());
 
         $resposta = $this->apiCliente->addAuthorization()
                 ->postJson('remessas', $remessas_dados)
@@ -60,6 +50,30 @@ class RemessasCliente extends Nucleo\Instancia {
         $remessa_resposta->setAtributos($resposta);
 
         return $remessa_resposta;
+    }
+
+    /**
+     * 
+     * @param array $remessas_dados
+     * @return array
+     */
+    private function organizarDadosRemessa(array $remessas_dados) {
+        if (!isset($remessas_dados['boletos']) || !is_array($remessas_dados['boletos'])) {
+            $remessas_dados['boletos'] = [];
+        }
+
+        $boletos = [];
+        foreach ($remessas_dados['boletos'] as $boleto) {
+            $boletos[] = [
+                "boleto_id" => $boleto['boleto_id']
+            ];
+        }
+        // remove dados anterior
+        unset($remessas_dados['boletos']);
+        // seta com dados atualizado
+        $remessas_dados['boletos'] = $boletos;
+
+        return $remessas_dados;
     }
 
 }

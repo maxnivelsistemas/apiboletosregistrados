@@ -16,6 +16,22 @@ namespace OBRSDK\HttpClient;
 class BoletosCliente extends Nucleo\Instancia {
 
     /**
+     *
+     * @var \OBRSDK\Entidades\Boletos[]
+     */
+    private $boletosParaGerar = [];
+
+    /**
+     * Adiciona um boleto para ser gerado
+     * 
+     * @param \OBRSDK\Entidades\Boletos $boleto
+     */
+    public function addBoletoParaGerar(\OBRSDK\Entidades\Boletos $boleto) {
+        $this->boletosParaGerar[] = $boleto;
+    }
+
+    /**
+     * Gera os boletos adicionado na lista
      * 
      * @param \OBRSDK\Entidades\Abstratos\ABanco $banco
      * @param \OBRSDK\Entidades\Beneficiario $beneficiario
@@ -23,37 +39,27 @@ class BoletosCliente extends Nucleo\Instancia {
      * @return \OBRSDK\Entidades\Boletos[]
      * @throws \OBRSDK\Exceptions\PreenchimentoIncorreto
      */
-    public function gerarBoletos(\OBRSDK\Entidades\Abstratos\ABanco $banco, \OBRSDK\Entidades\Beneficiario $beneficiario, $boletos) {
-        if (!is_array($boletos) && !($boletos instanceof \OBRSDK\Entidades\Boletos)) {
-            throw new \OBRSDK\Exceptions\PreenchimentoIncorreto("Boletos precisam ser um array de entidade Boletos");
-        }
-
-        $boletos = !is_array($boletos) ? array($boletos) : $boletos;
-
-        $banco_dados = $banco->getAtributes();
-        $beneficiario_dados = $beneficiario->getAtributes();
+    public function gerarBoletos(\OBRSDK\Entidades\Abstratos\ABanco $banco, \OBRSDK\Entidades\Beneficiario $beneficiario) {
+        $boletos = $this->boletosParaGerar;
         $boletos_dados = [];
-
         foreach ($boletos as $boleto) {
-            if (!($boleto instanceof \OBRSDK\Entidades\Boletos)) {
-                throw new \OBRSDK\Exceptions\PreenchimentoIncorreto("Boletos precisam ser um array de entidade Boletos");
-            }
-
             $boletos_dados[] = $boleto->getAtributes();
         }
 
-        $param = [
-            $banco->getNomeBancoJson() => $banco_dados,
-            'beneficiario' => $beneficiario_dados,
-            'boletos' => $boletos_dados
-        ];
-
-
         $response = $this->apiCliente->addAuthorization()
-                ->postJson('boletos', $param)
+                ->postJson('boletos', [
+                    $banco->getNomeBancoJson() => $banco->getAtributes(),
+                    "beneficiario" => $beneficiario->getAtributes(),
+                    "boletos" => $boletos_dados
+                ])
                 ->getRespostaArray();
-        
-        $quantidadeBoletos = count($response['boletos']);
+
+        $this->boletosParaGerar = [];
+
+        $quantidadeBoletos = 0;
+        if (isset($response['boleots'])) {
+            $quantidadeBoletos = is_array($response['boletos']) ? count($response['boletos']) : 1;
+        }
 
         for ($i = 0; $i < $quantidadeBoletos; $i++) {
             // preenche o objeto de boletos recebido

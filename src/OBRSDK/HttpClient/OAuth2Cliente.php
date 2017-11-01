@@ -86,24 +86,11 @@ class OAuth2Cliente extends Nucleo\Instancia {
      */
     private function oauth(array $config) {
         try {
-            $param = array_merge(
-                    $config, [
-                'client_id' => $this->getInstancia()->getAppId(),
-                'client_secret' => $this->getInstancia()->getAppSecret()
-                    ]
-            );
+            $resposta = $this->apiCliente
+                    ->postParam('auth/token', $this->getParametroOauthToken($config))
+                    ->getRespostaArray();
 
-            $response = $this->apiCliente->postParam('auth/token', $param)->getRespostaArray();
-
-            if (!isset($response['refresh_token'])) {
-                $response['refresh_token'] = null;
-            }
-            $response['data_token'] = time();
-
-            $entidadeAccessToken = new \OBRSDK\Entidades\AccessToken();
-            $entidadeAccessToken->setAtributos($response);
-
-            $this->getInstancia()->setObjAccessToken($entidadeAccessToken);
+            $this->getInstancia()->setObjAccessToken($this->entidadeAccessToken($resposta));
         } catch (\OBRSDK\Exceptions\RespostaException $ex) {
             if (isset($ex->getError()->OAuth2->erro_description)) {
                 throw new \OBRSDK\Exceptions\AutenticacaoException($ex);
@@ -111,6 +98,36 @@ class OAuth2Cliente extends Nucleo\Instancia {
                 throw $ex;
             }
         }
+    }
+
+    /**
+     * 
+     * @param array $config
+     * @return array
+     */
+    private function getParametroOauthToken(array $config) {
+        return array_merge($config, [
+            'client_id' => $this->getInstancia()->getAppId(),
+            'client_secret' => $this->getInstancia()->getAppSecret()
+        ]);
+    }
+
+    /**
+     * 
+     * @param array $respostaOauth
+     * @return \OBRSDK\Entidades\AccessToken
+     */
+    private function entidadeAccessToken(array $respostaOauth) {
+        if (!isset($respostaOauth['refresh_token'])) {
+            $respostaOauth['refresh_token'] = null;
+        }
+
+        $respostaOauth['data_token'] = time();
+
+        $entidadeAccessToken = new \OBRSDK\Entidades\AccessToken();
+        $entidadeAccessToken->setAtributos($respostaOauth);
+
+        return $entidadeAccessToken;
     }
 
 }

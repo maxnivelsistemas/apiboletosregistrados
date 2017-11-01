@@ -156,43 +156,18 @@ class HttpCliente extends \OBRSDK\DebugMode implements \OBRSDK\HttpClient\Interf
             throw new \Exception("Não é possivel fazer uma requisicão sem obter a resposta da anterior");
         }
 
-        if (is_null($data)) {
-            $data = array();
-        }
-
-        if (!is_array($data)) {
-            throw new \Exception("Parametro data deve ser um formato array em OBRSDK\HttpClient\Nucleo\HttpCliente->request");
-        }
+        $dataObjeto = new ApiData($data);
 
         try {
             $response = [];
 
-            // se for upload
-            if (isset($data['__uploadfile__'])) {
-                // muda a data para multipart do arquivo
-                $data = [
-                    'multipart' => [
-                        [
-                            'name' => 'uploadArquivo',
-                            'contents' => file_get_contents($data['__uploadfile__']),
-                            'filename' => basename($data['__uploadfile__'])
-                        ]
-                    ]
-                ];
-            }
-
-            if (count($this->headers) > 0) {
-                $data = array_merge([
-                    'headers' => $this->headers
-                        ], $data);
-            }
-
+            $dataObjeto->addHeaders($this->headers);
             $this->headers = [];
 
-            $this->debugDadosEnviado($uri, $type, $data);
+            $this->debugDadosEnviado($uri, $type, $dataObjeto->getData());
 
-            if ($data != null) {
-                $response = $this->client->request($type, $uri, $data);
+            if ($dataObjeto->getDataSize() > 0) {
+                $response = $this->client->request($type, $uri, $dataObjeto->getData());
             } else {
                 $response = $this->client->request($type, $uri);
             }

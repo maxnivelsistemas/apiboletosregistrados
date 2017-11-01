@@ -24,18 +24,10 @@ class RespostaException extends \Exception {
     public function __construct($response, $show = null) {
         $body = json_decode($response);
 
-        if (isset($body->status)) {
-            $this->status = $body->status;
-        }
-        if (isset($body->titulo)) {
-            $this->titulo = $body->titulo;
-        }
-
-        if (isset($body->mensagem)) {
-            $this->mensagem = $body->mensagem;
-        }
-        if (isset($body->error)) {
-            $this->error = $body->error;
+        foreach ($body as $key => $value) {
+            if (property_exists($this, $key)) {
+                $this->$key = $value;
+            }
         }
 
         if ($show != null) {

@@ -21,16 +21,7 @@ abstract class AEntidadePropriedades extends AEntidadePreenchimento {
         $atributosPreenchidos = [];
         foreach ($atributos as $atributoNome => $valor) {
             if ($valor != null) {
-                $atributoValor = $valor;
-                if (is_array($atributoValor)) {
-                    $atributoValor = $this->percorrerArrayAtributo($atributoValor);
-                } else if (is_object($atributoValor)) {
-                    $atributoValor = $this->getAtributes($atributoValor);
-                }
-                
-                if (count($atributoValor) > 0) {
-                    $atributosPreenchidos[$atributoNome] = $atributoValor;
-                }
+                $atributosPreenchidos[$atributoNome] = $this->getAtributoValor($valor);
             }
         }
 
@@ -49,6 +40,16 @@ abstract class AEntidadePropriedades extends AEntidadePreenchimento {
         }
 
         return $atributoValor;
+    }
+
+    private function getAtributoValor($atributoValor) {
+        if (is_array($atributoValor)) {
+            return $this->percorrerArrayAtributo($atributoValor);
+        } else if (is_object($atributoValor)) {
+            return $this->getAtributes($atributoValor);
+        } else {
+            return $atributoValor;
+        }
     }
 
     /// ====

@@ -40,23 +40,20 @@ abstract class DebugMode {
 
     protected function debugDadosRecebido($uri, $type, $dados, $headers, $statusCode) {
         try {
-            if (self::$debugModeStatus) {
-                if ($dados == null) {
-                    $dados = '{}';
-                }
-
-                if ($headers == null) {
-                    $headers = array();
-                }
-
-
-                $json_decode = json_decode($dados, true);
-                if ($json_decode == null) {
-                    $json_decode = array("json_decode_falha" => $dados);
-                }
-
-                self::$debugObject->dadosRecebido($uri, $type, $json_decode, $headers, $statusCode);
+            if (!self::$debugModeStatus) {
+                return;
             }
+
+            if ($dados == null) {
+                $dados = '{}';
+            }
+
+            $json_decode = json_decode($dados, true);
+            if ($json_decode == null) {
+                $json_decode = array("json_decode_falha" => $dados);
+            }
+
+            self::$debugObject->dadosRecebido($uri, $type, $json_decode, $headers == null ? [] : $headers, $statusCode);
         } catch (\Exception $ex) {
             return;
         }
