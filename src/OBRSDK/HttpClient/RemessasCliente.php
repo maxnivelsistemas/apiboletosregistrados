@@ -26,7 +26,7 @@ class RemessasCliente extends Nucleo\Instancia {
         $this->apiCliente->addAuthorization()
                 ->postJson('remessas', $remessas_dados);
 
-        return $this->getResultadoLista('remessas', new \OBRSDK\Entidades\Remessas());
+        return $this->getListaEntidade('remessas', new \OBRSDK\Entidades\Remessas());
     }
 
     /**

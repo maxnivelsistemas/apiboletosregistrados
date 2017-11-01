@@ -67,7 +67,7 @@ class BoletosCliente extends Nucleo\Instancia {
         $this->apiCliente->addAuthorization()
                 ->get('boletos', $query_string);
 
-        return $this->getResultadoLista('boletos', new \OBRSDK\Entidades\Boletos());
+        return $this->getListaEntidade('boletos', new \OBRSDK\Entidades\Boletos());
     }
 
     /**

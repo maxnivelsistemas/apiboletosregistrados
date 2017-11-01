@@ -40,9 +40,9 @@ abstract class Instancia {
      * 
      * @param string $index
      * @param \OBRSDK\Entidades\Abstratos\AEntidadePropriedades $entidade
-     * @return \OBRSDK\Entidades\Abstratos\AEntidadePropriedades
+     * @return array
      */
-    protected function getResultadoLista($index, \OBRSDK\Entidades\Abstratos\AEntidadePropriedades $entidade) {
+    protected function getListaEntidade($index, \OBRSDK\Entidades\Abstratos\AEntidadePropriedades $entidade) {
         $resposta = $this->apiCliente
                 ->getRespostaArray();
 
