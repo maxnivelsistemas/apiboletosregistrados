@@ -22,6 +22,11 @@ class Boletos extends Abstratos\AEntidadePropriedades {
     protected $linha_digitavel;
     protected $codigo_febraban;
     protected $link;
+
+    /**
+     *
+     * @var Retorno 
+     */
     protected $retorno;
     ///
     /// ATRIBUTOS OBRIGATORIOS
@@ -47,6 +52,10 @@ class Boletos extends Abstratos\AEntidadePropriedades {
     public $sequencial;
     public $aceite;
     public $local_pagamento;
+
+    public function __construct() {
+        $this->retorno = new Retorno();
+    }
 
     public function getBoletoId() {
         return $this->boleto_id;

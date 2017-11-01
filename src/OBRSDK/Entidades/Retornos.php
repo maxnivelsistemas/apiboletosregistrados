@@ -21,6 +21,10 @@ class Retornos extends \OBRSDK\Entidades\Abstratos\AEntidadePropriedades {
      */
     protected $boletos;
 
+    public function __construct() {
+        $this->boletos = [new Boletos()];
+    }
+
     public function getRetornoId() {
         return $this->retorno_id;
     }

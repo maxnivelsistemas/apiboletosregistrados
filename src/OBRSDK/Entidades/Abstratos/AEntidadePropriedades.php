@@ -52,14 +52,16 @@ abstract class AEntidadePropriedades extends AEntidadePreenchimento {
     }
 
     private function getAtributoValor($atributoValor) {
+        $returnable = null;
         if (is_array($atributoValor)) {
-            $array = $this->percorrerArrayAtributo($atributoValor);
-            return count($array) > 0 ? $array : null;
+            $returnable = $this->percorrerArrayAtributo($atributoValor);
         } else if (is_object($atributoValor)) {
-            return $this->getAtributes($atributoValor);
+            $returnable = $this->getAtributes($atributoValor);
         } else {
-            return $atributoValor;
+            $returnable = $atributoValor;
         }
+
+        return count($returnable) > 0 ? $returnable : null;
     }
 
     /// ====
