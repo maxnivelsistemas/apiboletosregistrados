@@ -14,18 +14,10 @@ class RetornosCliente extends Nucleo\Instancia {
      * @return \OBRSDK\Entidades\Retornos[]
      */
     public function getListaRetornos() {
-        $resposta = $this->apiCliente->addAuthorization()
-                        ->get('retornos')->getRespostaArray();
+        $this->apiCliente->addAuthorization()
+                ->get("retornos");
 
-        $retornos = [];
-        foreach ($resposta->retornos as $retorno) {
-            $retornoObjeto = new \OBRSDK\Entidades\Retornos();
-            $retornoObjeto->setAtributos($retorno);
-
-            $retornos[] = $retornoObjeto;
-        }
-
-        return $retornos;
+        return $this->getListaEntidade('retornos', new \OBRSDK\Entidades\Retornos());
     }
 
     /**
