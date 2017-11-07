@@ -1,11 +1,14 @@
 {
-    "name": "objetocomunicacao/obrsdk",
+    "name": "objetodigital/apiboletosregistrados",
     "type": "library",
-    "description": "SDK para acessar API Objeto Boletos Registrados",
+    "description": "SDK para acessar API Boletos Registrados da Objeto Comunicação",
     "keywords": ["boletos banco do brasil", "boletos", "boletos registrados", "objeto comunicacao", "api boletos registrados"],
-    "homepage": "https://github.com/antoniojoaojr",
+    "homepage": "https://github.com/objetodigital",
     "license": "MIT",
     "authors": [
+        {
+            "name":"Objeto Comunicação"
+        },
         {
             "name": "Antônio Junior",
             "email": "antoniojr75@outlook.com",
