@@ -45,18 +45,15 @@ class OAuth2Cliente extends Nucleo\Instancia {
      * @throws OBRSDK\Exceptions\AutorizationException
      * @throws \OBRSDK\Exceptions\RespostaException
      */
-    public function autenticarComAutorizacao($code = null) {
+    public function autenticarComAutorizacao($code = null, array $config = []) {
         $error = filter_input(INPUT_GET, 'error');
         if ($error != null && $error != '') {
             throw new \OBRSDK\Exceptions\AutorizationException($error, filter_input(INPUT_GET, 'error_description'));
         }
-
-        $authorizationCode = $code === null ? filter_input(INPUT_GET, 'code') : $code;
-        $this->oauth([
+        $this->oauth(array_merge($config, [
             'grant_type' => 'authorization_code',
-            'code' => $authorizationCode
-        ]);
-
+            'code' => $code === null ? filter_input(INPUT_GET, 'code') : $code
+        ]));
         return filter_input(INPUT_GET, 'state');
     }
 

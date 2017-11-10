@@ -49,8 +49,8 @@ class Autenticacao {
      * @param string $code
      * @return mixed estado retornado no callback 
      */
-    public function porAutorizacaoUsuario($code = null) {
-        return $this->oauthCliente->autenticarComAutorizacao($code);
+    public function porAutorizacaoUsuario($code = null, array $config = []) {
+        return $this->oauthCliente->autenticarComAutorizacao($code, $config);
     }
 
     /**
