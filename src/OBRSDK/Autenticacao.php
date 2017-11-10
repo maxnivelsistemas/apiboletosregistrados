@@ -81,12 +81,13 @@ class Autenticacao {
      * @param string $state Valor de estado na URL, você pode fornecer um estado proprio para gerenciar os retornos
      * @return string
      */
-    public function getUrlAutorizacao(array $escopos, $state = null) {
+    public function getUrlAutorizacao(array $escopos, $redirect_uri, $state = null) {
         $url = HttpClient\Nucleo\HttpCliente::BASE_URL . HttpClient\Nucleo\HttpCliente::API_VERSION . '/auth/authorization';
 
         $queryString = [
             'response_type' => 'code',
             'client_id' => $this->oauthCliente->getInstancia()->getAppId(),
+            'redirect_uri' => $redirect_uri,
             'scope' => implode(" ", $escopos),
             'state' => $state === null || $state == '' ? time() : $state
         ];
