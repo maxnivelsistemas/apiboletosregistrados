@@ -18,7 +18,7 @@ class HttpCliente implements \OBRSDK\HttpClient\Interfaces\ICoreCliente {
     /**
      * Base URL para acesso a API boletos registrados
      */
-    const BASE_URL = 'http://localhost/objetoboletosregistrados/api.php/';
+    const BASE_URL = 'http://www.apiboletos.com.br/api.php/';
 
     /**
      * Versão da API que esse SDK trabalha
