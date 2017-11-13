@@ -31,6 +31,7 @@ class ObjetoBoletosRegistrados {
             throw new Exceptions\ConfiguracaoInvalida("É necessário passar um 'appId' e um 'appSecret' nas configurações inicial");
         }
 
+        
         $this->appId = $config['appId'];
         $this->appSecret = $config['appSecret'];
         if ($objAccessToken != null) {
