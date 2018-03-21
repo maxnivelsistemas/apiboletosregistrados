@@ -13,6 +13,11 @@
             "name": "Antônio Junior",
             "email": "antoniojr75@outlook.com",
             "role": "Desenvolvedor PHP"
+        },
+        {
+            "name": "Ronildo Souza",
+            "email": "ronyldo12@gmail.com",
+            "role": "Desenvolvedor"
         }
     ],
     "require": {
