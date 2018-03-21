@@ -47,9 +47,10 @@ abstract class Instancia {
                 ->getRespostaArray();
 
         $lista = [];
-        foreach ($resposta[$index] as $resultado) {
-            $entidade->setAtributos($resultado);
-            $lista[] = $entidade;
+         foreach ($resposta[$index] as $resultado) {
+            $entidadeTmp = clone $entidade;
+            $entidadeTmp->setAtributos($resultado);
+            $lista[] = $entidadeTmp;
         }
 
         return $lista;
