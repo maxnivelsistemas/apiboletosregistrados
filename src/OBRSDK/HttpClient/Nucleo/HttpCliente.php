@@ -18,7 +18,7 @@ class HttpCliente implements \OBRSDK\HttpClient\Interfaces\ICoreCliente {
     /**
      * Base URL para acesso a API boletos registrados
      */
-    const BASE_URL = 'http://www.apiboletos.com.br/api.php/';
+    static $BASE_URL = 'http://www.apiboletos.com.br/api.php/';
 
     /**
      * Versão da API que esse SDK trabalha
@@ -38,7 +38,7 @@ class HttpCliente implements \OBRSDK\HttpClient\Interfaces\ICoreCliente {
         }
 
         $this->client = new \GuzzleHttp\Client([
-            'base_uri' => self::BASE_URL . self::API_VERSION . '/'
+            'base_uri' => self::$BASE_URL . self::API_VERSION . '/'
         ]);
     }
 
@@ -163,6 +163,10 @@ class HttpCliente implements \OBRSDK\HttpClient\Interfaces\ICoreCliente {
         $requisicao = new ApiRequisicao($this->client, $type, $uri, $dataObjeto);
         $this->response = $requisicao->getRespostaConteudo();
         $this->requestCalling = true;
+    }
+    
+    public static function setBaseUrl($url){
+        self::$BASE_URL =$url;
     }
 
 }

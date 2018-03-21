@@ -82,7 +82,7 @@ class Autenticacao {
      * @return string
      */
     public function getUrlAutorizacao(array $escopos, $redirect_uri, $state = null) {
-        $url = HttpClient\Nucleo\HttpCliente::BASE_URL . HttpClient\Nucleo\HttpCliente::API_VERSION . '/auth/authorization';
+        $url = HttpClient\Nucleo\HttpCliente::$BASE_URL . HttpClient\Nucleo\HttpCliente::API_VERSION . '/auth/authorization';
 
         $queryString = [
             'response_type' => 'code',
