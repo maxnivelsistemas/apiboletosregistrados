@@ -44,6 +44,7 @@ class ApiRequisicao extends \OBRSDK\DebugMode {
         } catch (\GuzzleHttp\Exception\BadResponseException $ex) {
             $resultado = $ex->getResponse()->getBody()->getContents();
             $this->debugDadosRecebido($this->urlRequisicao, $this->tipoRequisicao, $resultado, $ex->getResponse()->getHeaders(), $ex->getResponse()->getStatusCode());
+            show_array( $ex->getResponse());
             throw new \OBRSDK\Exceptions\RespostaException($resultado);
         }
     }

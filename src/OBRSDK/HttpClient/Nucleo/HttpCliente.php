@@ -164,7 +164,7 @@ class HttpCliente implements \OBRSDK\HttpClient\Interfaces\ICoreCliente {
         $this->response = $requisicao->getRespostaConteudo();
         $this->requestCalling = true;
     }
-    
+
     public static function setBaseUrl($url){
         self::$BASE_URL =$url;
     }

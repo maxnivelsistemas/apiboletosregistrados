@@ -45,4 +45,19 @@ class RetornosCliente extends Nucleo\Instancia {
         return $respostaEntidade;
     }
 
+    /**
+     * 
+     * Processa e retorna informações sobre um arquivo de retorno, como por exemplo quais boletos estão envonvidos nesse arquivo
+     * 
+     * @param string $conteudoArquivo conteúdo do arquivo de retorno emitido pelo banco
+     * @param bool $isFile
+     * @return \OBRSDK\Entidades\Retornos
+     */
+    public function enviarArquivo($conteudoArquivo) {
+        $resposta = $this->apiCliente
+                ->addAuthorization()
+                ->postRaw("retornos", $conteudoArquivo);        
+        return $this->getRetornoDados($resposta->retorno_id);
+    }
+
 }
