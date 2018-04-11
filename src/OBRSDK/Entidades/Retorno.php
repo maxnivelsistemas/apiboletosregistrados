@@ -37,8 +37,6 @@ class Retorno extends \OBRSDK\Entidades\Abstratos\AEntidadePropriedades {
     protected $banco;
     protected $data_vencimento;
     protected $movimentacao_descricao;
-
-    
     
     public function getCodigoMovimento() {
         return $this->codigo_movimento;
