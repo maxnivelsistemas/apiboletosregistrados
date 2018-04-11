@@ -27,7 +27,19 @@ class Retorno extends \OBRSDK\Entidades\Abstratos\AEntidadePropriedades {
     protected $ocorrencia_pag_data;
     protected $ocorrencia_pag_valor;
     protected $ocorrencia_complemento;
+    protected $data_pagamento;
+    protected $liquidacao;
+    protected $nosso_numero;
+    protected $numero_documento;
+    protected $numero_contrato;
+    protected $agencia;
+    protected $conta;
+    protected $banco;
+    protected $data_vencimento;
+    protected $movimentacao_descricao;
 
+    
+    
     public function getCodigoMovimento() {
         return $this->codigo_movimento;
     }
@@ -103,5 +115,47 @@ class Retorno extends \OBRSDK\Entidades\Abstratos\AEntidadePropriedades {
     public function getOcorrenciaComplemento() {
         return $this->ocorrencia_complemento;
     }
+    
+    function getDataPagamento() {
+        return $this->data_pagamento;
+    }
+
+    function getLiquidacao() {
+        return $this->liquidacao;
+    }
+
+    function getNossoNumero() {
+        return $this->nosso_numero;
+    }
+
+    function getNumeroDocumento() {
+        return $this->numero_documento;
+    }
+
+    function getNumeroContrato() {
+        return $this->numero_contrato;
+    }
+
+    function getAgencia() {
+        return $this->agencia;
+    }
+
+    function getConta() {
+        return $this->conta;
+    }
+
+    function getBanco() {
+        return $this->banco;
+    }
+
+    function getDataVencimento() {
+        return $this->data_vencimento;
+    }
+
+    function getMovimentacaoDescricao() {
+        return $this->movimentacao_descricao;
+    }
+
+
 
 }
