@@ -38,7 +38,9 @@ class ObjetoBoletosRegistrados {
             throw new Exceptions\ConfiguracaoInvalida("É necessário passar um 'appId' e um 'appSecret' nas configurações inicial");
         }
 
-        HttpClient\Nucleo\HttpCliente::$BASE_URL = $urlApiBoletos;
+        if($urlApiBoletos){
+            HttpClient\Nucleo\HttpCliente::$BASE_URL = $urlApiBoletos;
+        }
         
         $this->appId = $config['appId'];
         $this->appSecret = $config['appSecret'];
