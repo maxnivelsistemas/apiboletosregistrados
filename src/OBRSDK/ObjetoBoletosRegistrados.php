@@ -26,11 +26,19 @@ class ObjetoBoletosRegistrados {
      */
     private $accessTokenUpdateCallback;
 
-    public function __construct(array $config, \OBRSDK\Entidades\AccessToken $objAccessToken = null) {
+    /**
+     * 
+     * @param array $config
+     * @param \OBRSDK\Entidades\AccessToken $objAccessToken
+     * @param string $urlApiBoletos url para api de boleto. Padrão: http://www.apiboletos.com.br/api.php/
+     * @throws Exceptions\ConfiguracaoInvalida
+     */
+    public function __construct(array $config, \OBRSDK\Entidades\AccessToken $objAccessToken = null, $urlApiBoletos = null) {
         if (!isset($config['appId']) || !isset($config['appSecret'])) {
             throw new Exceptions\ConfiguracaoInvalida("É necessário passar um 'appId' e um 'appSecret' nas configurações inicial");
         }
 
+        HttpClient\Nucleo\HttpCliente::$BASE_URL = $urlApiBoletos;
         
         $this->appId = $config['appId'];
         $this->appSecret = $config['appSecret'];
@@ -38,6 +46,14 @@ class ObjetoBoletosRegistrados {
             $this->accessToken = $objAccessToken;
         }
         $this->autenticacao = new Autenticacao($this);
+    }
+
+    public function mudarUrlApiBoletos($urlApiBoletos){
+        HttpClient\Nucleo\HttpCliente::$BASE_URL = $urlApiBoletos;
+    }
+    
+    public function setUrlApiBoletos($urlApiBoletos){
+        HttpClient\Nucleo\HttpCliente::$BASE_URL = $urlApiBoletos;
     }
 
     public function getAppId() {
