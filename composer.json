@@ -1,9 +1,9 @@
 {
-    "name": "objetodigital/apiboletosregistrados",
+    "name": "maxnivelsistemas/apiboletosregistrados",
     "type": "library",
     "description": "SDK para acessar API Boletos Registrados da Objeto Comunicação",
     "keywords": ["boletos banco do brasil", "boletos", "boletos registrados", "objeto comunicacao", "api boletos registrados"],
-    "homepage": "https://github.com/objetodigital",
+    "homepage": "https://github.com/maxnivelsistemas",
     "license": "MIT",
     "authors": [
         {
